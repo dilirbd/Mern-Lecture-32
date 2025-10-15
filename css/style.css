@@ -148,10 +148,3 @@ body {
         border-radius: 7px;
     }
 }
-
-@media (max-width: 768px) {
-
-    .carousel-item h2 {
-        font-size: 2rem;
-    }
-}
