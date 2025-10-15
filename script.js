@@ -96,7 +96,6 @@ function carouselCode() {
         });
     });
 }
-carouselCode();
 
 function passGen() {
     const sourceArray = [
@@ -105,14 +104,7 @@ function passGen() {
         numberString,
         spCharString,
     ];
-    let smallLetterCount = 3,
-        smallLetterPart = "";
-    let bigLetterCount = 3,
-        bigLetterPart = "";
-    let numberCount = 2,
-        numberPart = "";
-    let spCharCount = 2,
-        spCharPart = "";
+    let smallLetterCount = 3, bigLetterCount = 3, numberCount = 2, spCharCount = 2;
 
     let countArray = [
             smallLetterCount,
@@ -153,6 +145,7 @@ function shuffle(str) {
     return splitStr.join("");
 }
 
+carouselCode();
 passBtn.addEventListener("click", passGen);
 
 // document.addEventListener("load", scriptCode);
