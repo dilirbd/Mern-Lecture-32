@@ -4,6 +4,11 @@ const root = document.documentElement;
 const rootFontSize = parseFloat(getComputedStyle(root).fontSize);
 root.style.setProperty("--root-font-size", rootFontSize);
 
+const carouselCont = document.querySelector(".carousel-container");
+const carousel = document.querySelector(".carousel");
+const prevBtn = document.querySelector(".prev-btn");
+const nextBtn = document.querySelector(".next-btn");
+const indicatorCont = document.createElement("div");
 const passField = document.querySelector("#password-field");
 const passBtn = document.querySelector("#password-gen");
 const smallLetterString = "abcdefghijklmnopqrstuvwxyz";
@@ -12,11 +17,6 @@ const numberString = "0123456789";
 const spCharString = "!@#$%^&*";
 
 function carouselCode() {
-    const carouselCont = document.querySelector(".carousel-container");
-    const carousel = document.querySelector(".carousel");
-    const prevBtn = document.querySelector(".prev-btn");
-    const nextBtn = document.querySelector(".next-btn");
-    const indicatorCont = document.createElement("div");
 
     let currentIndex = 0;
     const totalSlides = document.querySelectorAll(".carousel-item").length;
