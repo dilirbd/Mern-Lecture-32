@@ -3,6 +3,7 @@ let intervalId;
 const root = document.documentElement;
 const rootFontSize = parseFloat(getComputedStyle(root).fontSize);
 root.style.setProperty("--root-font-size", rootFontSize);
+root.style.setProperty("--progress-animation-duration", "4380ms");
 
 const carouselCont = document.querySelector(".carousel-container");
 const carousel = document.querySelector(".carousel");
@@ -33,6 +34,7 @@ function carouselCode() {
     indicatorCont.classList.add("carousel-indicators");
 
     const indicators = document.querySelectorAll(".indicator");
+    const carouselItemProgressBars = document.querySelectorAll(".progress-bar");
 
     if (currentIndex + 1 >= totalSlides) {
         nextBtn.style.display = "none";
@@ -63,6 +65,10 @@ function carouselCode() {
             // sets 'active' class on indicator whenever index === currentIndex, removes otherwise
             indicator.classList.toggle("active", index === currentIndex);
         });
+
+        carouselItemProgressBars.forEach((progressBar, index) => {
+            progressBar.classList.toggle("timer", index === currentIndex);
+        });
     }
 
     function autoChange() {
@@ -72,6 +78,30 @@ function carouselCode() {
         }, 5000);
     }
     autoChange();
+
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) clearInterval(intervalId);
+        else {
+            carouselItemProgressBars.forEach((progressBar, index) => {
+                if (index === currentIndex) {
+                    // current paint cycle
+                    progressBar.classList.remove("timer");
+                    
+                    // schedule execution of argument for next browser paint cycle (with 'timer' removed)
+                    requestAnimationFrame(() => {
+                        // 1 browser paint completed/passed without 'timer' class on progressbar (animation reset)
+
+                        // schedule execution of argument for next browser paint cycle
+                        requestAnimationFrame(() => {
+                            // add animation class back before next paint 'cuz callback is executed before next paint
+                            progressBar.classList.toggle("timer", index === currentIndex);
+                        });
+                    });
+                }
+            });
+            autoChange();
+        }
+    });
 
     nextBtn.addEventListener("click", function () {
         currentIndex = (currentIndex + 1) % totalSlides;
@@ -104,7 +134,7 @@ function passGen() {
         numberString,
         spCharString,
     ];
-    let smallLetterCount = 3, bigLetterCount = 3, numberCount = 2, spCharCount = 2;
+    let smallLetterCount = 3, bigLetterCount = 3, numberCount = 3, spCharCount = 3;
 
     let countArray = [
             smallLetterCount,
